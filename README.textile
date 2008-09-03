@@ -1,0 +1,10 @@
+h1. adi_menu.git
+
+h2. Description
+
+p. My changes to Adi Gilbert's plugin for "Textpattern":http://textpattern.com.
+
+h2. Licence
+
+p. This project is released under the "GPLv2 licence":http://www.fsf.org/licensing/licenses/info/GPLv2.html.
+
