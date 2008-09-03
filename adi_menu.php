@@ -44,9 +44,9 @@ if (@txpinterface == 'admin')
 	add_privs($myevent, '1,2,3,6');
 
 	// add new tab under 'Presentation'
-	register_tab("presentation", $myevent, $mytab);
+	register_tab('presentation', $myevent, $mytab);
 
-	register_callback("adi_menu_admin", $myevent);
+	register_callback('adi_menu_admin', $myevent);
 	//register_callback('adi_menu', 'adi_menu');
 	}
 
@@ -55,48 +55,48 @@ function adi_menu_admin($event, $step)
 	$debug = 0; // display debug info
 
 	// tooltip help information
-	$h['se'] = "The TXP section name, set in Sections tab";
-	$h['ti'] = "The TXP section title, set in Sections tab";
-	$h['ex'] = "Tick if the section should be excluded by default from the menu";
-	$h['pa'] = "The section's parent";
-	$h['so'] = "The section's sort order number";
-	$h['ch'] = "Tick if the section should be cloned in its own submenu";
-	$h['ct'] = "Used as the section's title if it's cloned";
-	$h['in'] = "Install adi_menu";
-	$h['un'] = "Uninstall adi_menu";
-	$h['im'] = "Import parent settings from cnk_section_tree (install adi_menu first)";
+	$h['se'] = 'The TXP section name, set in Sections tab';
+	$h['ti'] = 'The TXP section title, set in Sections tab';
+	$h['ex'] = 'Tick if the section should be excluded by default from the menu';
+	$h['pa'] = 'The section\'s parent';
+	$h['so'] = 'The section\'s sort order number';
+	$h['ch'] = 'Tick if the section should be cloned in its own submenu';
+	$h['ct'] = 'Used as the section\'s title if it\'s cloned';
+	$h['in'] = 'Install adi_menu';
+	$h['un'] = 'Uninstall adi_menu';
+	$h['im'] = 'Import parent settings from cnk_section_tree (install adi_menu first)';
 
 	$installed = adi_menu_column_found('adi_menu_parent');
 
-	$something = ps("something");
+	$something = ps('something');
 	$res = FALSE;
 
 	if ($installed) 
 		{
-		if ($something == "uninstall") 
+		if ($something == 'uninstall') 
 			{
 			require_privs('plugin');
 			$res = adi_menu_uninstall();
 			if ($res)
-	   			pagetop("adi_menu admin", "adi_menu: uninstall successful");
+	   			pagetop('adi_menu admin', "adi_menu: uninstall successful");
 			else
-	   			pagetop("adi_menu admin", "adi_menu: uninstall not successful");
+	   			pagetop('adi_menu admin', "adi_menu: uninstall not successful");
 			$installed = adi_menu_column_found('adi_menu_parent');
 			}
 		else if ($something == "install") 
 			{
 			require_privs('plugin');
-			pagetop("adi_menu admin", "adi_menu: already installed");
+			pagetop('adi_menu admin', "adi_menu: already installed");
 			}
 		else if ($something == "import") 
 			{
 			$res = adi_menu_import();
-	   		$res ? pagetop("adi_menu admin", "adi_menu: import successful") :
-				pagetop("adi_menu admin", "adi_menu: import failed");
+	   		$res ? pagetop('adi_menu admin', "adi_menu: import successful") :
+				pagetop('adi_menu admin', "adi_menu: import failed");
 			}
 		else if ($step == "update") 
 			{
-	   		pagetop("adi_menu admin", "adi_menu: updated");
+	   		pagetop('adi_menu admin', "adi_menu: updated");
 				if ($debug) 
 					{
 					echo "<br/>Parent: ";
@@ -119,9 +119,9 @@ function adi_menu_admin($event, $step)
 				adi_menu_update($sections,$parent,$alt_title,$exclude,$clone,$sort);
 			}
 		else if ($step == "admin")
-		   	pagetop("adi_menu admin", "adi_menu: no admin option selected");
+		   	pagetop('adi_menu admin', "adi_menu: no admin option selected");
 		else // do nothing
-		   	pagetop("adi_menu admin", "");
+		   	pagetop('adi_menu admin', "");
 		}
 	else 
 		{ // not installed
@@ -130,18 +130,18 @@ function adi_menu_admin($event, $step)
 			require_privs('plugin');
 			$res = adi_menu_install();
 			if ($res)
-	    		pagetop("adi_menu admin", "adi_menu: install successful");
+	    		pagetop('adi_menu admin', "adi_menu: install successful");
 			else
-	    		pagetop("adi_menu admin", "adi_menu: install not successful");
+	    		pagetop('adi_menu admin', "adi_menu: install not successful");
 			$installed = adi_menu_column_found('adi_menu_parent');
 			}
 		else if ($something == "uninstall") 
 			{
 			require_privs('plugin');
-			pagetop("adi_menu admin", "adi_menu: not installed");
+			pagetop('adi_menu admin', "adi_menu: not installed");
 			}
 		else if ($something == "import")
-	   		pagetop("adi_menu admin", "adi_menu: must be installed first");
+	   		pagetop('adi_menu admin', "adi_menu: must be installed first");
 		}
 
 	if ($installed) 
@@ -175,16 +175,16 @@ function adi_menu_admin($event, $step)
 			adi_menu_display_settings($sections).
 			endTable().
 			tag(
-				fInput("submit", "update", "Update", "smallerbox").
-				eInput("adi_menu_admin").sInput("update"),
+				fInput('submit', 'update', 'Update', 'smallerbox').
+				eInput('adi_menu_admin').sInput('update'),
 				'div',
 				' align="center" style="margin-top:2em"'
 				)
 			);
 		}
-	else if (($something != "uninstall") && ($something != "import")) 
+	else if (($something != 'uninstall') && ($something != 'import')) 
 		{
-		pagetop("adi_menu admin", "adi_menu: not installed");
+		pagetop('adi_menu admin', "adi_menu: not installed");
 		}
 
 	if ($debug) 
@@ -345,9 +345,9 @@ function adi_menu_uninstall()
 
 function adi_get_sections() 
 	{
-	$sql_fields = "name, title, adi_menu_parent, adi_menu_title, adi_menu_exclude, adi_menu_clone, adi_menu_sort";
+	$sql_fields = 'name, title, adi_menu_parent, adi_menu_title, adi_menu_exclude, adi_menu_clone, adi_menu_sort';
 	$sql_tables = safe_pfx('txp_section');
-	$rs = safe_query("SELECT ".$sql_fields." FROM ".$sql_tables." ORDER BY name");
+	$rs = safe_query('SELECT '.$sql_fields.' FROM '.$sql_tables.' ORDER BY name');	# Change this to a safe_() call?
 	while ($a = nextRow($rs)) 
 		{
 		extract($a); // set 'name','title','parent' etc in $a
@@ -388,8 +388,8 @@ function adi_menu_section_list($ignore_exclude)
 			}
 		if (!$include_default) $exclude = "and name != 'default'";
 		$ignore_exclude ?
-			$exclude_option = "adi_menu_exclude = 0 or adi_menu_exclude = 1" : // i.e. TRUE or FALSE
-			$exclude_option = "adi_menu_exclude = 0";
+			$exclude_option = 'adi_menu_exclude = 0 or adi_menu_exclude = 1' : // i.e. TRUE or FALSE
+			$exclude_option = 'adi_menu_exclude = 0';
 		$rs = safe_rows_start($fields, 'txp_section', "$exclude_option $exclude order by ".$sort);
 		}
 	if ($rs) 
@@ -417,9 +417,9 @@ function adi_menu_breadcrumb($atts)
 	global $s; // the current section
 	global $label,$separator,$sep,$title,$link,$linkclass,$include_default;
 	global $sections,$exclude,$sort,$default_first,$default_title,$include_default,$link_last;
-	$sections=$exclude="";
-	$sort="NULL";
-	$default_first=$include_default="1";
+	$sections=$exclude='';
+	$sort='NULL';
+	$default_first=$include_default='1';
 
 	extract(lAtts(array(
 		'label'				=> 'You are here: ',	// String to prepend to the output
@@ -449,7 +449,7 @@ function adi_menu_breadcrumb($atts)
 		if ($s == $child) $count++;
 		if ($count > 1) 
 			{
-			$out[] = "Warning: Section loop found";
+			$out[] = 'Warning: Section loop found';
 			return $out;
 			}
 		if ($include_default || ($child != 'default')) 
