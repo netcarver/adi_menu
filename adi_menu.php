@@ -371,11 +371,12 @@ function adi_menu_loop_check($section_list,$start,$child,$found)
 function adi_menu_section_list($ignore_exclude) 
 	{
 	global $sections,$exclude,$sort,$default_first,$default_title,$include_default;
+	$fields = 'name,title,adi_menu_parent,adi_menu_clone,adi_menu_title';
 	if ($sections) 
 		{
 		$sections = do_list($sections);
 		$sections = join("','", doSlash($sections));
-		$rs = safe_rows_start('name,title,adi_menu_parent,adi_menu_clone,adi_menu_title', 'txp_section', "name in ('$sections') order by ".($sort ? $sort : "field(name, '$sections')"));
+		$rs = safe_rows_start($fields, 'txp_section', "name in ('$sections') order by ".($sort ? $sort : "field(name, '$sections')"));
 		}
 	else 
 		{
@@ -389,7 +390,7 @@ function adi_menu_section_list($ignore_exclude)
 		$ignore_exclude ?
 			$exclude_option = "adi_menu_exclude = 0 or adi_menu_exclude = 1" : // i.e. TRUE or FALSE
 			$exclude_option = "adi_menu_exclude = 0";
-		$rs = safe_rows_start('name,title,adi_menu_parent,adi_menu_clone,adi_menu_title', 'txp_section', "$exclude_option $exclude order by ".$sort);
+		$rs = safe_rows_start($fields, 'txp_section', "$exclude_option $exclude order by ".$sort);
 		}
 	if ($rs) 
 		{
