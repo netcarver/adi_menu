@@ -238,7 +238,7 @@ function adi_menu_tip($term,$help)
 function adi_menu_column_found($column) 
 	{
 	// if 'adi_menu_parent' column present then assume adi_menu is installed
-	$rs = safe_query("SELECT * FROM ".safe_pfx('txp_section'));
+	$rs = safe_query('SELECT * FROM '.safe_pfx('txp_section'));
 	$a = nextRow($rs);
 	return array_key_exists($column, $a);
 	}
@@ -262,7 +262,7 @@ function adi_menu_import()
 			$import[$index]['parent'] == 'default' ? // don't want 'default' as a parent
 				$set = 'adi_menu_parent=""' :
 				$set = 'adi_menu_parent="'.$import[$index]['parent'].'"';
-			safe_update("txp_section", $set, $where, $debug='');
+			safe_update('txp_section', $set, $where, $debug='');
 			}
 		return TRUE;
 		}
@@ -297,7 +297,7 @@ function adi_menu_display_settings($sections)
 
 function adi_menu_section_popup($select_name,$value) 
 	{
-	$rs = safe_column('name', 'txp_section', "TRUE");
+	$rs = safe_column('name', 'txp_section', 'TRUE');
 	if ($rs) 
 		{
 		return selectInput($select_name, $rs, $value, TRUE);
@@ -311,34 +311,36 @@ function adi_menu_update($sections,$parent,$alt_title,$exclude,$clone,$sort)
 		{
 		$where = 'name="'.$index.'"';
 		$set = 'adi_menu_parent="'.$parent[$index].'"';
-		safe_update("txp_section", $set, $where, $debug='');
+		safe_update('txp_section', $set, $where, $debug='');
 		$set = 'adi_menu_title="'.$alt_title[$index].'"';
-		safe_update("txp_section", $set, $where, $debug='');
+		safe_update('txp_section', $set, $where, $debug='');
 		empty($exclude[$index]) ? $set = 'adi_menu_exclude="0"' : $set = 'adi_menu_exclude="1"';
-		safe_update("txp_section", $set, $where, $debug='');
+		safe_update('txp_section', $set, $where, $debug='');
 		empty($clone[$index]) ? $set = 'adi_menu_clone="0"' : $set = 'adi_menu_clone="1"';
-		safe_update("txp_section", $set, $where, $debug='');
+		safe_update('txp_section', $set, $where, $debug='');
 		$set = 'adi_menu_sort="'.$sort[$index].'"';
-		safe_update("txp_section", $set, $where, $debug='');
+		safe_update('txp_section', $set, $where, $debug='');
 		}
 	}
 
 function adi_menu_install() 
 	{
-	return safe_query("ALTER TABLE ".safe_pfx("txp_section")." ADD adi_menu_parent VARCHAR(128) DEFAULT '';")
-		&& safe_query("ALTER TABLE ".safe_pfx("txp_section")." ADD adi_menu_title VARCHAR(128) DEFAULT '';")
-		&& safe_query("ALTER TABLE ".safe_pfx("txp_section")." ADD adi_menu_exclude BOOLEAN DEFAULT FALSE NOT NULL;")
-		&& safe_query("ALTER TABLE ".safe_pfx("txp_section")." ADD adi_menu_clone BOOLEAN DEFAULT FALSE NOT NULL;")
-		&& safe_query("ALTER TABLE ".safe_pfx("txp_section")." ADD adi_menu_sort TINYINT(3) UNSIGNED DEFAULT 0 NOT NULL;");
+	$section = safe_pfx('txp_section');
+	return safe_query('ALTER TABLE '.$section." ADD adi_menu_parent VARCHAR(128) DEFAULT '';")
+		&& safe_query('ALTER TABLE '.$section." ADD adi_menu_title VARCHAR(128) DEFAULT '';")
+		&& safe_query('ALTER TABLE '.$section." ADD adi_menu_exclude BOOLEAN DEFAULT FALSE NOT NULL;")
+		&& safe_query('ALTER TABLE '.$section." ADD adi_menu_clone BOOLEAN DEFAULT FALSE NOT NULL;")
+		&& safe_query('ALTER TABLE '.$section." ADD adi_menu_sort TINYINT(3) UNSIGNED DEFAULT 0 NOT NULL;");
 	}
 
 function adi_menu_uninstall() 
 	{
-	return safe_query("ALTER TABLE ".safe_pfx("txp_section")." DROP COLUMN adi_menu_parent;")
-		&& safe_query("ALTER TABLE ".safe_pfx("txp_section")." DROP COLUMN adi_menu_title;")
-		&& safe_query("ALTER TABLE ".safe_pfx("txp_section")." DROP COLUMN adi_menu_exclude;")
-		&& safe_query("ALTER TABLE ".safe_pfx("txp_section")." DROP COLUMN adi_menu_clone;")
-		&& safe_query("ALTER TABLE ".safe_pfx("txp_section")." DROP COLUMN adi_menu_sort;");
+	$section = safe_pfx('txp_section');
+	return safe_query('ALTER TABLE '.$section." DROP COLUMN adi_menu_parent;")
+		&& safe_query('ALTER TABLE '.$section." DROP COLUMN adi_menu_title;")
+		&& safe_query('ALTER TABLE '.$section." DROP COLUMN adi_menu_exclude;")
+		&& safe_query('ALTER TABLE '.$section." DROP COLUMN adi_menu_clone;")
+		&& safe_query('ALTER TABLE '.$section." DROP COLUMN adi_menu_sort;");
 	}
 
 function adi_get_sections() 
