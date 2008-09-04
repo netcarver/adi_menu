@@ -346,12 +346,10 @@ function adi_menu_uninstall()
 function adi_get_sections() 
 	{
 	$sql_fields = 'name, title, adi_menu_parent, adi_menu_title, adi_menu_exclude, adi_menu_clone, adi_menu_sort';
-	$sql_tables = safe_pfx('txp_section');
-	$rs = safe_query('SELECT '.$sql_fields.' FROM '.$sql_tables.' ORDER BY name');
+	$rs = safe_rows_start($sql_fields, 'txp_section', 'true order by name');
 	while ($a = nextRow($rs)) 
 		{
-		extract($a); // set 'name','title','parent' etc in $a
-		$out[$name] = $a;
+		$out[$a['name']] = $a;
 		}
 	return $out;
 	}
