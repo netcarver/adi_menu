@@ -351,7 +351,7 @@ function adi_get_sections()
 	while ($a = nextRow($rs)) 
 		{
 		extract($a); // set 'name','title','parent' etc in $a
-		$out[$aname] = $a;
+		$out[$name] = $a;
 		}
 	return $out;
 	}
