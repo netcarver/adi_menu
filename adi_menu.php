@@ -78,36 +78,36 @@ function adi_menu_admin($event, $step)
 			require_privs('plugin');
 			$res = adi_menu_uninstall();
 			if ($res)
-	   			pagetop('adi_menu admin', "adi_menu: uninstall successful");
+	   			pagetop('adi_menu admin', 'adi_menu: uninstall successful');
 			else
-	   			pagetop('adi_menu admin', "adi_menu: uninstall not successful");
+	   			pagetop('adi_menu admin', 'adi_menu: uninstall not successful');
 			$installed = adi_menu_column_found('adi_menu_parent');
 			}
-		else if ($something == "install") 
+		else if ($something == 'install') 
 			{
 			require_privs('plugin');
-			pagetop('adi_menu admin', "adi_menu: already installed");
+			pagetop('adi_menu admin', 'adi_menu: already installed');
 			}
-		else if ($something == "import") 
+		else if ($something == 'import') 
 			{
 			$res = adi_menu_import();
-	   		$res ? pagetop('adi_menu admin', "adi_menu: import successful") :
-				pagetop('adi_menu admin', "adi_menu: import failed");
+	   		$res ? pagetop('adi_menu admin', 'adi_menu: import successful') :
+				pagetop('adi_menu admin', 'adi_menu: import failed');
 			}
-		else if ($step == "update") 
+		else if ($step == 'update') 
 			{
-	   		pagetop('adi_menu admin', "adi_menu: updated");
+	   		pagetop('adi_menu admin', 'adi_menu: updated');
 				if ($debug) 
 					{
-					echo "<br/>Parent: ";
+					echo '<br/>Parent: ';
 					print_r(ps('parent'));
-					echo "<br/>Alt title: ";
+					echo '<br/>Alt title: ';
 					print_r(ps('alt_title'));
-					echo "<br/>Exclude: ";
+					echo '<br/>Exclude: ';
 					print_r(ps('exclude'));
-					echo "<br/>Clone: ";
+					echo '<br/>Clone: ';
 					print_r(ps('clone'));
-					echo "<br/>Sort: ";
+					echo '<br/>Sort: ';
 					print_r(ps('sort'));
 					}
 				$parent = ps('parent');
@@ -118,40 +118,40 @@ function adi_menu_admin($event, $step)
 				$sections = adi_get_sections();
 				adi_menu_update($sections,$parent,$alt_title,$exclude,$clone,$sort);
 			}
-		else if ($step == "admin")
-		   	pagetop('adi_menu admin', "adi_menu: no admin option selected");
+		else if ($step == 'admin')
+		   	pagetop('adi_menu admin', 'adi_menu: no admin option selected');
 		else // do nothing
-		   	pagetop('adi_menu admin', "");
+		   	pagetop('adi_menu admin', '');
 		}
 	else 
 		{ // not installed
-		if ($something == "install") 
+		if ($something == 'install') 
 			{
 			require_privs('plugin');
 			$res = adi_menu_install();
 			if ($res)
-	    		pagetop('adi_menu admin', "adi_menu: install successful");
+	    		pagetop('adi_menu admin', 'adi_menu: install successful');
 			else
-	    		pagetop('adi_menu admin', "adi_menu: install not successful");
+	    		pagetop('adi_menu admin', 'adi_menu: install not successful');
 			$installed = adi_menu_column_found('adi_menu_parent');
 			}
-		else if ($something == "uninstall") 
+		else if ($something == 'uninstall') 
 			{
 			require_privs('plugin');
-			pagetop('adi_menu admin', "adi_menu: not installed");
+			pagetop('adi_menu admin', 'adi_menu: not installed');
 			}
-		else if ($something == "import")
-	   		pagetop('adi_menu admin', "adi_menu: must be installed first");
+		else if ($something == 'import')
+	   		pagetop('adi_menu admin', 'adi_menu: must be installed first');
 		}
 
 	if ($installed) 
 		{
 		$sections = adi_get_sections();
 		// perform check for section loops
-		$out = "";
+		$out = '';
 		foreach ($sections as $index => $section)
 			if (adi_menu_loop_check($sections,$index,$index,FALSE))
-				$out .= " ".$index;
+				$out .= ' '.$index;
 		if ($out) 
 			{
 			echo tag(
@@ -163,13 +163,13 @@ function adi_menu_admin($event, $step)
 		echo form(
 			startTable('list').
 			tr(
-				hcell(adi_menu_tip("Section",$h['se'])).
-				hcell(adi_menu_tip("Title",$h['ti'])).
-				hcell(adi_menu_tip("Exclude?",$h['ex'])).
-				hcell(adi_menu_tip("Parent",$h['pa'])).
-				hcell(adi_menu_tip("Sort order",$h['so'])).
-				hcell(adi_menu_tip("Clone?",$h['ch'])).
-				hcell(adi_menu_tip("Clone title",$h['ct']))
+				hcell(adi_menu_tip('Section',$h['se'])).
+				hcell(adi_menu_tip('Title',$h['ti'])).
+				hcell(adi_menu_tip('Exclude?',$h['ex'])).
+				hcell(adi_menu_tip('Parent',$h['pa'])).
+				hcell(adi_menu_tip('Sort order',$h['so'])).
+				hcell(adi_menu_tip('Clone?',$h['ch'])).
+				hcell(adi_menu_tip('Clone title',$h['ct']))
 				).
 			//'<tfoot style="font-weight:bold"><tr><td>Section</td><td>Title</td><td>Exclude?</td><td>Parent</td><td>Sort order</td><td>Clone?</td><td>Clone title</td></tr></tfoot>'.
 			adi_menu_display_settings($sections).
@@ -184,42 +184,42 @@ function adi_menu_admin($event, $step)
 		}
 	else if (($something != 'uninstall') && ($something != 'import')) 
 		{
-		pagetop('adi_menu admin', "adi_menu: not installed");
+		pagetop('adi_menu admin', 'adi_menu: not installed');
 		}
 
 	if ($debug) 
 		{
-		echo "Event: ".$event."<br/>Step: ".$step."<br/>Something: ".$something;
+		echo 'Event: '.$event.'<br/>Step: '.$step.'<br/>Something: '.$something;
 		}
 
     echo form(
-		tag("Administration","h3").
+		tag('Administration','h3').
 		graf(
-			" ".adi_menu_tip("Install",$h['in']).
-			fInput("radio", "something", "install", "edit", "", "", "20", "1").
-			" ".adi_menu_tip("Uninstall",$h['un']).
-        	fInput("radio", "something", "uninstall", "edit", "", "", "20", "1").
-			" ".adi_menu_tip("Import",$h['im']).
-        	fInput("radio", "something", "import", "edit", "", "", "20", "1").
-			" ".
-        	fInput("submit", "do_something", "Do admin", "smallerbox","",'return verify(\''.gTxt('are_you_sure').'\')')
+			' '.adi_menu_tip('Install',$h['in']).
+			fInput('radio', 'something', 'install', 'edit', '', '', '20', '1').
+			' '.adi_menu_tip('Uninstall',$h['un']).
+        	fInput('radio', 'something', 'uninstall', 'edit', '', '', '20', '1').
+			' '.adi_menu_tip('Import',$h['im']).
+        	fInput('radio', 'something', 'import', 'edit', '', '', '20', '1').
+			' '.
+        	fInput('submit', 'do_something', 'Do admin', 'smallerbox','','return verify(\''.gTxt('are_you_sure').'\')')
 			).
-        eInput("adi_menu_admin").sInput("admin")
+        eInput('adi_menu_admin').sInput('admin')
 		,"text-align:center;margin-top:3em"
 		);
 
 	// output hierarchy summary
 	global $sections,$exclude,$sort,$default_first,$default_title,$include_default,$menu_id;
-	$sections=$exclude="";
-	$sort="NULL";
-	$default_first=$include_default="1";
-	$menu_id = "mainmenu";
+	$sections=$exclude='';
+	$sort='NULL';
+	$default_first=$include_default='1';
+	$menu_id = 'mainmenu';
 	$section_list = adi_menu_section_list(FALSE);
 	$hierarchy = adi_menu_hierarchy($section_list,'',0);
 	$out = adi_menu_markup($hierarchy,0);
 	echo '<div style="margin-left:10em">';
-	echo tag("Summary","h3",' style="margin-top:3em"');
-	echo tag("The above configuration will generate the following section hierarchy (subject to adi_menu tag attributes):","p");
+	echo tag('Summary','h3',' style="margin-top:3em"');
+	echo tag('The above configuration will generate the following section hierarchy (subject to adi_menu tag attributes):','p');
 	foreach ($out as $index => $value)
 		print $out[$index];
 	echo '</div>';
@@ -248,9 +248,9 @@ function adi_menu_import()
 	// import parent settings from 'parent' column - as used in cnk_section_tree
 	if (adi_menu_column_found('parent')) 
 		{ // 'parent' column present
-		$sql_fields = "name,parent";
+		$sql_fields = 'name,parent';
 		$sql_tables = safe_pfx('txp_section');
-		$rs = safe_query("SELECT ".$sql_fields." FROM ".$sql_tables);
+		$rs = safe_query('SELECT '.$sql_fields.' FROM '.$sql_tables);
 		while ($a = nextRow($rs)) 
 			{
 			extract($a);
@@ -285,11 +285,11 @@ function adi_menu_display_settings($sections)
 		$out .= tr(
 			tda($name).
 			tda($title).
-			tda(checkbox("exclude[$name]", "1", $exclude),' style="text-align:center"').
+			tda(checkbox("exclude[$name]", '1', $exclude),' style="text-align:center"').
 			tda(adi_menu_section_popup("parent[$name]",$parent)).
-			tda(finput("text","sort[$name]",$sort,'','','',4),' style="text-align:center"').
-			tda(checkbox("clone[$name]", "1", $clone),' style="text-align:center"').
-			tda(finput("text","alt_title[$name]",$alt_title))
+			tda(finput('text',"sort[$name]",$sort,'','','',4),' style="text-align:center"').
+			tda(checkbox("clone[$name]", '1', $clone),' style="text-align:center"').
+			tda(finput('text',"alt_title[$name]",$alt_title))
 			);
 		}
 	return $out;
@@ -328,30 +328,30 @@ function adi_menu_install()
 	$section = safe_pfx('txp_section');
 	return safe_query('ALTER TABLE '.$section." ADD adi_menu_parent VARCHAR(128) DEFAULT '';")
 		&& safe_query('ALTER TABLE '.$section." ADD adi_menu_title VARCHAR(128) DEFAULT '';")
-		&& safe_query('ALTER TABLE '.$section." ADD adi_menu_exclude BOOLEAN DEFAULT FALSE NOT NULL;")
-		&& safe_query('ALTER TABLE '.$section." ADD adi_menu_clone BOOLEAN DEFAULT FALSE NOT NULL;")
-		&& safe_query('ALTER TABLE '.$section." ADD adi_menu_sort TINYINT(3) UNSIGNED DEFAULT 0 NOT NULL;");
+		&& safe_query('ALTER TABLE '.$section.' ADD adi_menu_exclude BOOLEAN DEFAULT FALSE NOT NULL;')
+		&& safe_query('ALTER TABLE '.$section.' ADD adi_menu_clone BOOLEAN DEFAULT FALSE NOT NULL;')
+		&& safe_query('ALTER TABLE '.$section.' ADD adi_menu_sort TINYINT(3) UNSIGNED DEFAULT 0 NOT NULL;');
 	}
 
 function adi_menu_uninstall() 
 	{
 	$section = safe_pfx('txp_section');
-	return safe_query('ALTER TABLE '.$section." DROP COLUMN adi_menu_parent;")
-		&& safe_query('ALTER TABLE '.$section." DROP COLUMN adi_menu_title;")
-		&& safe_query('ALTER TABLE '.$section." DROP COLUMN adi_menu_exclude;")
-		&& safe_query('ALTER TABLE '.$section." DROP COLUMN adi_menu_clone;")
-		&& safe_query('ALTER TABLE '.$section." DROP COLUMN adi_menu_sort;");
+	return safe_query('ALTER TABLE '.$section.' DROP COLUMN adi_menu_parent;')
+		&& safe_query('ALTER TABLE '.$section.' DROP COLUMN adi_menu_title;')
+		&& safe_query('ALTER TABLE '.$section.' DROP COLUMN adi_menu_exclude;')
+		&& safe_query('ALTER TABLE '.$section.' DROP COLUMN adi_menu_clone;')
+		&& safe_query('ALTER TABLE '.$section.' DROP COLUMN adi_menu_sort;');
 	}
 
 function adi_get_sections() 
 	{
 	$sql_fields = 'name, title, adi_menu_parent, adi_menu_title, adi_menu_exclude, adi_menu_clone, adi_menu_sort';
 	$sql_tables = safe_pfx('txp_section');
-	$rs = safe_query('SELECT '.$sql_fields.' FROM '.$sql_tables.' ORDER BY name');	# Change this to a safe_() call?
+	$rs = safe_query('SELECT '.$sql_fields.' FROM '.$sql_tables.' ORDER BY name');
 	while ($a = nextRow($rs)) 
 		{
 		extract($a); // set 'name','title','parent' etc in $a
-		$out[$name] = $a;
+		$out[$aname] = $a;
 		}
 	return $out;
 	}
@@ -465,7 +465,7 @@ function adi_menu_breadcrumb($atts)
 					$out[] = $link ? tag($default_title,'a',' class="'.$linkclass.'" href="'.$section_list['default']['url'].'"') : $default_title;
 					}
 				else
-					$out[] = "";
+					$out[] = '';
 				if ($include_default && ($s != 'default'))
 					$out[] = $separator;
 				}
@@ -497,7 +497,7 @@ function adi_menu_breadcrumb($atts)
 			}
 		if ($s == $child) $count++;
 		if ($count > 1) { // bomb out if loop found
-			$out[] = "Warning, section loop found: ";
+			$out[] = 'Warning, section loop found: ';
 			return $out;
 			}
 		if ($section_list[$child]['adi_menu_parent']) // has parent
@@ -589,9 +589,9 @@ function adi_menu_markup($hierarchy,$level)
 			'' ).' href="'.$url.'"');
 		if ($parent)
 			$out = array_merge($out,adi_menu_markup($hierarchy[$index]['child'],$level+1));
-		$out[] = "</li>";
+		$out[] = '</li>';
 		}
-	$out[] = "</ul>";
+	$out[] = '</ul>';
 	return $out;
 	}
 
@@ -632,9 +632,9 @@ function adi_menu($atts)
 	$hierarchy = adi_menu_hierarchy($section_list,'',0);
 	if ($debug) 
 		{
-		echo "SECTION LIST<br/>";
+		echo 'SECTION LIST<br/>';
 		dmp($section_list);
-		echo "HIERARCHY<br/>";
+		echo 'HIERARCHY<br/>';
 		dmp($hierarchy);
 		}
 	$out = adi_menu_markup($hierarchy,0);
